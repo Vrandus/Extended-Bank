@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lab5</string>
+    <string-array name="serviceOptions">
+        <item>DEPOSIT</item>
+        <item>WITHDRAW</item>
+        <item>TRANSFER</item>
+    </string-array>
+</resources>

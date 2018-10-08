@@ -21,8 +21,8 @@ public class Client {
             if( balance - amount >= 0) {
                 balance -= amount;
                 history[not] = new Transaction("WITHDRAW", amount);
-               // history[not].type = "WITHDRAW";
-               // history[not].amount = amount;
+                // history[not].type = "WITHDRAW";
+                // history[not].amount = amount;
                 not++;
             }
 
@@ -48,7 +48,7 @@ public class Client {
         }
     }
     public boolean isSuccessfulWithdraw(double amount) {
-        if(balance - amount > 0) {
+        if(balance - amount >= 0) {
             return true;
         }
 
@@ -64,4 +64,3 @@ public class Client {
 
 
 }
-

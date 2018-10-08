@@ -11,7 +11,9 @@ public class Bank {
     int noc = 0;
     int index = 0;
     String output;
+    public Bank(){
 
+    }
     public Bank(String name, String balance) {
         if(noc < 6) {
             if(isDuplicate(name) == false) {
@@ -69,10 +71,13 @@ public class Bank {
     }
 
     public void deposit(String name, String amount) {
-        if(isDuplicate(name) == true) {
+        if(isDuplicate(name) == true && Double.parseDouble(amount) > 0) {
             isDuplicate(name);
             clients[index].deposit(Double.parseDouble(amount));
             output = "Transaction Completed";
+        }
+        else if (isDuplicate(name) == true && Double.parseDouble(amount) <= 0){
+            output = "Error: Non-Positive Amount";
         }
         else {
             output = ("Error: " + name + " Does Not Exist");
@@ -80,10 +85,19 @@ public class Bank {
 
     }
     public void withdraw(String name, String amount) {
-        if(isDuplicate(name) == true) {
+        if(isDuplicate(name) == true && Double.parseDouble(amount) > 0) {
             isDuplicate(name);
-            clients[index].withdraw(Double.parseDouble(amount));
-            output =  "";
+            if(clients[index].isSuccessfulWithdraw(Double.parseDouble((amount))) == true)
+            {
+                clients[index].withdraw(Double.parseDouble(amount));
+                output = "Transaction Completed";
+            }
+            else{
+                output = "Error: Amount too large to withdraw";
+            }
+        }
+        else if(isDuplicate(name) == true && Double.parseDouble(amount) < 0){
+            output = "Error: Non-Positive Amount";
         }
         else {
             output = ("Error: " + name + " Does Not Exist");
@@ -98,11 +112,17 @@ public class Bank {
                 withdraw(fromClient, amount);
                 output = "Transaction Completed";
             }
+            else{
+                output = "Error: Amount too large to withdraw";
+            }
         }
         if(isDuplicate(fromClient) == false) {
             output = ("Error: " + fromClient + " Does Not Exist");
+            if(isDuplicate(toClient) == false) {
+                output += ("Error: " + toClient + " Does Not Exist");
+            }
         }
-        if(isDuplicate(toClient) == false) {
+        else if(isDuplicate(toClient) == false) {
             output = ("Error: " + toClient + " Does Not Exist");
         }
 
